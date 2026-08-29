@@ -107,14 +107,12 @@
     <section style="padding:52px 0 8px" data-screen-label="Instagram">
       <span style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)">On Instagram</span>
       <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(28px,6vw,36px);line-height:1.15;margin:10px 0 0">インスタ</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2);margin-top:22px">
+      <div id="ig-static" style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2);margin-top:22px">
         <div class="washed" style="border-radius:var(--radius-md);overflow:hidden"><image-slot id="ig1" shape="rect" style="width:100%;aspect-ratio:1" src="uploads/pasted-1788001583331-0.png" placeholder="IG photo"></image-slot></div>
         <div class="washed" style="border-radius:var(--radius-md);overflow:hidden"><image-slot id="ig2" shape="rect" style="width:100%;aspect-ratio:1" src="uploads/pasted-1788001640381-0.png" placeholder="IG photo"></image-slot></div>
         <div class="washed" style="border-radius:var(--radius-md);overflow:hidden"><image-slot id="ig3" shape="rect" style="width:100%;aspect-ratio:1" src="uploads/pasted-1788001334455-0.png" placeholder="IG photo"></image-slot></div>
-        <div class="washed" style="border-radius:var(--radius-md);overflow:hidden"><image-slot id="ig4" shape="rect" style="width:100%;aspect-ratio:1" placeholder="IG photo"></image-slot></div>
-        <div class="washed" style="border-radius:var(--radius-md);overflow:hidden"><image-slot id="ig5" shape="rect" style="width:100%;aspect-ratio:1" placeholder="IG photo"></image-slot></div>
-        <div class="washed" style="border-radius:var(--radius-md);overflow:hidden"><image-slot id="ig6" shape="rect" style="width:100%;aspect-ratio:1" placeholder="IG photo"></image-slot></div>
       </div>
+      <div id="ig-dynamic" style="display:none;gap:var(--space-2);margin-top:22px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px"></div>
       <p style="font-size:14px;margin:16px 0 0"><a href="https://www.instagram.com/da808lounge" target="_blank" rel="noopener" style="font-weight:600">@da808lounge をフォロー →</a></p>
     </section>
 
@@ -161,6 +159,81 @@ class Component extends DCLogic {
     };
   }
 }
+</script>
+<script>
+(() => {
+  // Latest-5 Instagram frame. Feed discovery runs through Behold (behold.so):
+  // create a feed for @da808lounge there and paste its JSON endpoint below
+  // (dashboard → feed → JSON), e.g. 'https://feed.behold.so/xxxxxxxx'.
+  // While empty — or if the fetch fails — the static photo grid above stays.
+  const FEED_URL = '';
+  const MAX_POSTS = 5;
+
+  const dyn = document.getElementById('ig-dynamic');
+  const stat = document.getElementById('ig-static');
+  if (!dyn || !stat || !FEED_URL) return;
+
+  const normalize = (p) => {
+    const href = p.permalink || p.url || '';
+    const img = p.mediaUrl || p.thumbnailUrl || p.media_url || p.thumbnail_url || '';
+    if (!/^https:\/\//.test(href) || !/^https:\/\//.test(img)) return null;
+    const type = String(p.mediaType || p.media_type || '').toUpperCase();
+    const caption = String(p.caption || '');
+    return { href, img, type, caption };
+  };
+
+  const tile = (post) => {
+    const a = document.createElement('a');
+    a.href = post.href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.className = 'washed';
+    a.style.cssText = 'flex:none;width:clamp(170px,46vw,220px);aspect-ratio:1;border-radius:var(--radius-md);overflow:hidden;scroll-snap-align:start;position:relative;display:block';
+    const im = document.createElement('img');
+    im.src = post.img;
+    im.alt = (post.caption || 'Instagram post').slice(0, 90);
+    im.loading = 'lazy';
+    im.referrerPolicy = 'no-referrer';
+    im.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
+    a.appendChild(im);
+    if (post.type === 'VIDEO') {
+      const b = document.createElement('span');
+      b.style.cssText = 'position:absolute;right:8px;bottom:8px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center';
+      const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      s.setAttribute('width', '12');
+      s.setAttribute('height', '12');
+      s.setAttribute('viewBox', '0 0 24 24');
+      s.setAttribute('fill', '#fff');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M8 5v14l11-7z');
+      s.appendChild(path);
+      b.appendChild(s);
+      a.appendChild(b);
+    }
+    return a;
+  };
+
+  let posts = null;
+  const render = () => {
+    dyn.replaceChildren(...posts.map(tile));
+    dyn.style.display = 'flex';
+    stat.style.display = 'none';
+  };
+
+  fetch(FEED_URL)
+    .then((r) => (r.ok ? r.json() : null))
+    .then((items) => {
+      if (!Array.isArray(items) || !items.length) return;
+      posts = items.map(normalize).filter(Boolean).slice(0, MAX_POSTS);
+      if (posts.length) render();
+    })
+    .catch(() => {});
+
+  // The DC runtime may rebuild the section; put the strip back if it's wiped.
+  new MutationObserver(() => {
+    if (posts && posts.length && dyn.isConnected && dyn.children.length === 0) render();
+  }).observe(dyn.parentNode, { childList: true });
+})();
 </script>
 </body>
 </html>
