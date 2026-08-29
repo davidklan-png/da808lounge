@@ -93,7 +93,7 @@
     <section style="padding:52px 0 8px" data-screen-label="Reviews">
       <span style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)">What people say</span>
       <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(28px,6vw,36px);line-height:1.15;margin:10px 0 0">みんなの声</h2>
-      <!-- Paraphrased from public Tabelog/Google reviews — replace with verbatim Google quotes -->
+      <!-- Verbatim Tabelog reviews (食べログ, public listing) — quoted spans only, unaltered -->
       <div style="display:flex;flex-direction:column;gap:var(--space-4);margin-top:22px">
         <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
           <div class="card" style="border-radius:var(--radius-lg)">
@@ -102,6 +102,10 @@
           </div>
         </sc-for>
       </div>
+      <figure class="washed" style="margin:28px 0 0;border-radius:var(--radius-lg);overflow:hidden">
+        <img src="uploads/google-listing-cover.png" alt="Da 808 Lounge counter with bottles and cocktails" style="width:100%;aspect-ratio:3/2;object-fit:cover;display:block">
+        <figcaption style="font-size:12px;padding:8px 14px;color:var(--color-neutral-700)">Photo: Google マップ掲載写真 / from the Google Maps listing</figcaption>
+      </figure>
     </section>
 
     <section style="padding:52px 0 8px" data-screen-label="Instagram">
@@ -116,12 +120,35 @@
       <p style="font-size:14px;margin:16px 0 0"><a href="https://www.instagram.com/da808lounge" target="_blank" rel="noopener" style="font-weight:600">@da808lounge をフォロー →</a></p>
     </section>
 
+    <section style="padding:52px 0 8px" data-screen-label="Around the web">
+      <span style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)">Around the web</span>
+      <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(28px,6vw,36px);line-height:1.15;margin:10px 0 0">SNS・口コミ</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2);margin-top:22px">
+        <a href="https://maps.app.goo.gl/MTxtKQpGXYfx63m19" target="_blank" rel="noopener" class="card" style="text-decoration:none;border-radius:var(--radius-lg);padding:18px 16px;display:block">
+          <span style="display:block;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)">Google</span>
+          <span style="display:block;font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:28px;line-height:1.2;margin-top:6px">4.8 ★</span>
+          <span style="display:block;font-size:13px;line-height:1.5;margin-top:4px;color:var(--color-neutral-700)">Google マップの評価 / Maps rating</span>
+        </a>
+        <a href="https://tabelog.com/tokyo/A1305/A130503/13278819/" target="_blank" rel="noopener" class="card" style="text-decoration:none;border-radius:var(--radius-lg);padding:18px 16px;display:block">
+          <span style="display:block;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)">食べログ</span>
+          <span style="display:block;font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:28px;line-height:1.2;margin-top:6px">3.04</span>
+          <span style="display:block;font-size:13px;line-height:1.5;margin-top:4px;color:var(--color-neutral-700)">高田馬場ハワイ料理 / Tabelog score</span>
+        </a>
+        <a href="https://www.facebook.com/Da808Lounge/" target="_blank" rel="noopener" class="card" style="text-decoration:none;border-radius:var(--radius-lg);padding:18px 16px;display:block">
+          <span style="display:block;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)">Facebook</span>
+          <span style="display:block;font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:28px;line-height:1.2;margin-top:6px">2,672</span>
+          <span style="display:block;font-size:13px;line-height:1.5;margin-top:4px;color:var(--color-neutral-700)">チェックイン / check-ins · いいね！364</span>
+        </a>
+      </div>
+      <p style="font-size:12px;margin:14px 0 0;color:var(--color-neutral-700)">2026年8月時点の公開リスティングデータ / figures from public listings, Aug 2026</p>
+    </section>
+
     <section id="access" style="padding:52px 0 12px" data-screen-label="Hours and access">
       <div style="background:var(--color-accent-2-100);border-radius:calc(2 * var(--radius-lg));padding:clamp(24px,6vw,40px)">
         <span style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-2-700)">Hours &amp; access</span>
         <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(26px,6vw,32px);line-height:1.15;margin:10px 0 0">営業案内</h2>
         <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px;font-size:15px;line-height:1.65;color:var(--color-accent-2-900)">
-          <p style="margin:0"><strong>営業 / Open</strong><br>17:00 – 深夜 (close time TBD) · 日曜定休 / Closed Sundays<br>Happy Hour 17:00–19:00</p>
+          <p style="margin:0"><strong>営業 / Open</strong><br>火–土 17:00 – 24:00 (L.O. 23:00) · 月・日・祝休 / Closed Sun, Mon &amp; holidays<br>Happy Hour 17:00–19:00</p>
           <p style="margin:0"><strong>住所 / Address</strong><br>東京都新宿区高田馬場3-1-5 サンパティオ高田馬場 1F<br>Sun Patio Takadanobaba 1F, 3-1-5 Takadanobaba, Shinjuku-ku</p>
           <p style="margin:0"><strong>行き方 / Getting here</strong><br>高田馬場駅から栄通り経由で徒歩2分 (JR山手線・東西線・西武新宿線)<br>2 min from Takadanobaba Sta. via Sakae-dori</p>
           <p style="margin:0"><strong>お支払い / Payment</strong><br>クレジットカード・電子マネー OK / Credit cards &amp; e-money accepted</p>
@@ -139,9 +166,10 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;showHappyHour&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showLunch&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
 class Component extends DCLogic {
   renderVals() {
-    const isSunday = new Date().getDay() === 0;
+    const dow = new Date().getDay();
+    const isClosedDay = dow === 0 || dow === 1; // 日・月定休 / closed Sun & Mon
     return {
-      todayChip: isSunday ? "本日定休 / Closed today" : "今日 17:00 OPEN / Open today from 5pm",
+      todayChip: isClosedDay ? "本日定休 / Closed today" : "今日 17:00 OPEN / Open today from 5pm",
       showHappyHour: this.props.showHappyHour ?? true,
       showLunch: this.props.showLunch ?? true,
       drinks: [
@@ -152,9 +180,8 @@ class Component extends DCLogic {
         { name: "Soft Drinks", note: "ノンアルもどうぞ / zero-proof welcome", price: "¥ —" }
       ],
       reviews: [
-        { text: "レトロな内装がおしゃれで、落ち着く雰囲気。 Retro interior, calming atmosphere.", source: "Tabelog review (paraphrased)" },
-        { text: "カウンターでひとり飲みにちょうどいい。 Just right for a solo drink at the counter.", source: "Tabelog / Google (paraphrased)" },
-        { text: "カクテルが丁寧。ハワイ好きなら間違いなし。 Careful cocktails — a sure thing if you love Hawaii.", source: "Google reviews (paraphrased)" }
+        { text: "レトロな内装がおしゃれで落ち着けそうな雰囲気。色々なシーンにマッチしそうです！", source: "食べログ 3.5 · 2025/12訪問" },
+        { text: "ハワイ出身のオーナーと営業熱心な女子店員さんの意気込みを買って、次回は夜に訪問したい。", source: "食べログ 3.1 · 2025/04訪問" }
       ]
     };
   }
