@@ -93,7 +93,7 @@
     <section style="padding:52px 0 8px" data-screen-label="Reviews">
       <span style="display:block;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)">What people say</span>
       <h2 style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:clamp(28px,6vw,36px);line-height:1.15;margin:10px 0 0">みんなの声</h2>
-      <!-- Verbatim Tabelog reviews (食べログ, public listing) — quoted spans only, unaltered -->
+      <!-- Verbatim public reviews: Google レビュー (EN) + 食べログ (JA) — quoted spans only, unaltered -->
       <div style="display:flex;flex-direction:column;gap:var(--space-4);margin-top:22px">
         <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
           <div class="card" style="border-radius:var(--radius-lg)">
@@ -180,8 +180,9 @@ class Component extends DCLogic {
         { name: "Soft Drinks", note: "ノンアルもどうぞ / zero-proof welcome", price: "¥ —" }
       ],
       reviews: [
-        { text: "レトロな内装がおしゃれで落ち着けそうな雰囲気。色々なシーンにマッチしそうです！", source: "食べログ 3.5 · 2025/12訪問" },
-        { text: "ハワイ出身のオーナーと営業熱心な女子店員さんの意気込みを買って、次回は夜に訪問したい。", source: "食べログ 3.1 · 2025/04訪問" }
+        { text: "My favorite bar in Takadanobaba! George has a special ability to make cocktails like I've never seen in Japan before, and the food is always really good too!", source: "Google ★5 · David McGinty · 2年前" },
+        { text: "A bit of Hawaii for those far away from the Islands. Take some time to meet the owner and you'll be openly welcomed and washed with Aloha. Come for the drinks/food and stay for the people.", source: "Google ★5 · Kalen Hamada · 2年前" },
+        { text: "レトロな内装がおしゃれで落ち着けそうな雰囲気。色々なシーンにマッチしそうです！", source: "食べログ 3.5 · 2025/12訪問" }
       ]
     };
   }
